@@ -12,8 +12,6 @@ A standalone interactive playbook for practicing and operating on Polaris Financ
 
 It was built during testnet practice on Sepolia (March 2026) by a real user — not assembled from documentation. The thresholds, decision trees, and observations reflect what actually happens when you use the protocol.
 
-The Polaris team has expressed interest in using this playbook for community onboarding at mainnet launch.
-
 ---
 
 ## What it covers
