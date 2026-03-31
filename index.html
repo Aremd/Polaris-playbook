@@ -1267,7 +1267,9 @@ function goToStrat(key) {
   // Open the right detail
   setStrat(key);
   showDetail(key);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.setTimeout(function() {
+    document.getElementById('detail-' + key).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
 }
 const stratData = {
   sp:   { name: 'SP First',          hint: 'Stable market · TCR > 200% · Recurring yield' },
