@@ -89,7 +89,11 @@ Works on iOS, Android, and desktop. No login, no account, no dependencies.
 
 ---
 
-## Honest limitations
+## ⚠️ Disclaimer — Honest limitations
+
+
+**This playbook is not financial advice.** It documents one operator's testnet experience and is provided for educational purposes only. Do not use these thresholds or strategies with real capital without independent validation.
+
 
 This playbook was built on 27+ days of testnet practice with fictional capital. It has not been validated with real money, real gas costs, or real liquidity constraints. All thresholds (LTV 55/65/75%, NBR 2%, SP APY 9%) are testnet-calibrated. Recalibration against real mainnet conditions is planned for the first 30 days post-launch.
 
@@ -104,3 +108,13 @@ If you are using Polaris on mainnet and observe behavior that contradicts what i
 ---
 
 *Arem with ❤️ for Polaris*
+
+---
+
+## License
+
+This work is licensed under [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
+
+You are free to share and adapt this material for non-commercial purposes, provided you give appropriate credit to the author (Arem) and indicate if changes were made. Commercial use requires explicit written permission from the author.
+
+© 2026 Arem — All commercial rights reserved.
