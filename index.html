@@ -265,6 +265,18 @@
     border-bottom-color: var(--accent);
   }
 
+  .nav-tab.morning {
+    background: var(--accent);
+    color: #0c0e12;
+    border-radius: 6px;
+    font-weight: 700;
+    padding: 8px 16px;
+    margin-right: 8px;
+    border-bottom: none;
+  }
+  .nav-tab.morning:hover { background: #6aadff; color: #0c0e12; }
+  .nav-tab.morning.active { background: var(--accent); color: #0c0e12; border-bottom: none; }
+
   /* ── MAIN ── */
   main { max-width: 960px; margin: 0 auto; padding: 32px 36px 80px; position: relative; z-index: 1; }
   .layer { display: none; }
@@ -1375,6 +1387,7 @@
 
 <!-- ── NAV ── -->
 <nav>
+  <button class="nav-tab morning" onclick="showLayer('mc', this)">☀ Morning Check</button>
   <button class="nav-tab" onclick="showLayer(0, this)">0 Scenarios</button>
   <button class="nav-tab" onclick="showLayer('m', this)">! Misreads</button>
   <button class="nav-tab active" onclick="showLayer(1, this)">1 Context</button>
@@ -1389,6 +1402,57 @@
 <!-- ══════════════════════════════════
      LAYER 0 — SCENARIO LIBRARY
 ══════════════════════════════════ -->
+<div class="layer" id="layermc">
+  <div class="card">
+    <div class="card-title">☀ Morning Check</div>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">Fill in the 7 metrics before starting your session. The playbook will indicate where you stand in the decision chain and which strategies are candidates.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+      <div>
+        <label style="font-size:11px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;">TCR (%)</label>
+        <input type="number" id="mc-tcr" placeholder="e.g. 210" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--text);font-family:IBM Plex Mono,monospace;font-size:14px;margin-top:4px;">
+      </div>
+      <div>
+        <label style="font-size:11px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;">NBR (%)</label>
+        <input type="number" id="mc-nbr" placeholder="e.g. 1.3" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--text);font-family:IBM Plex Mono,monospace;font-size:14px;margin-top:4px;">
+      </div>
+      <div>
+        <label style="font-size:11px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;">SP APY (%)</label>
+        <input type="number" id="mc-spapy" placeholder="e.g. 10.2" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--text);font-family:IBM Plex Mono,monospace;font-size:14px;margin-top:4px;">
+      </div>
+      <div>
+        <label style="font-size:11px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;">LTV max position (%)</label>
+        <input type="number" id="mc-ltv" placeholder="e.g. 42" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--text);font-family:IBM Plex Mono,monospace;font-size:14px;margin-top:4px;">
+      </div>
+      <div>
+        <label style="font-size:11px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;">pUSD peg</label>
+        <input type="number" id="mc-peg" placeholder="e.g. 0.999" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--text);font-family:IBM Plex Mono,monospace;font-size:14px;margin-top:4px;">
+      </div>
+      <div>
+        <label style="font-size:11px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;">Floor pETH</label>
+        <input type="number" id="mc-floor" placeholder="e.g. 1850" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--text);font-family:IBM Plex Mono,monospace;font-size:14px;margin-top:4px;">
+      </div>
+      <div>
+        <label style="font-size:11px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;">Market pETH</label>
+        <input type="number" id="mc-market" placeholder="e.g. 1950" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--text);font-family:IBM Plex Mono,monospace;font-size:14px;margin-top:4px;">
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <span style="font-size:11px;color:var(--muted);">Timestamp</span>
+      <span id="mc-timestamp" style="font-family:IBM Plex Mono,monospace;font-size:12px;color:var(--accent);"></span>
+      <button onclick="runMorningCheck()" style="margin-left:auto;background:var(--accent);color:#0c0e12;border:none;border-radius:6px;padding:10px 24px;font-family:Syne,sans-serif;font-weight:700;font-size:13px;cursor:pointer;">Analyse →</button>
+    </div>
+
+    <div id="mc-result" style="display:none;">
+      <div style="border-top:1px solid var(--border);padding-top:16px;">
+        <div id="mc-position" style="font-size:13px;color:var(--muted);margin-bottom:12px;"></div>
+        <div id="mc-strategies" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="layer" id="layer0">
   <div style="margin-bottom: 6px;">
     <h2>Scenario library</h2>
@@ -2670,6 +2734,48 @@ function showLayer(n, el) {
   document.getElementById('layer' + n).classList.add('active');
   el.classList.add('active');
 }
+function runMorningCheck() {
+  const tcr = parseFloat(document.getElementById('mc-tcr').value);
+  const nbr = parseFloat(document.getElementById('mc-nbr').value);
+  const spapy = parseFloat(document.getElementById('mc-spapy').value);
+  const ltv = parseFloat(document.getElementById('mc-ltv').value);
+  const peg = parseFloat(document.getElementById('mc-peg').value);
+  const floor = parseFloat(document.getElementById('mc-floor').value);
+  const market = parseFloat(document.getElementById('mc-market').value);
+
+  if ([tcr, nbr, spapy, ltv, peg, floor, market].some(isNaN)) {
+    alert('Please fill in all 7 metrics.');
+    return;
+  }
+
+  const floorRatio = market / floor;
+  const spread = market / floor;
+
+  // Position in decision chain
+  let position = '';
+  if (ltv >= 65) position = '<span style="color:var(--danger);font-weight:700;">⚠ LTV critical (' + ltv + '%) — MONITORING priority: reduce exposure before any new action.</span>';
+  else if (ltv >= 55) position = '<span style="color:var(--warn);font-weight:700;">⚑ LTV elevated (' + ltv + '%) — monitor closely. No new leverage.</span>';
+  else if (peg < 0.98) position = '<span style="color:var(--warn);font-weight:700;">⚑ pUSD depeg (' + peg + ') — system under stress. Hold SP, do not exit.</span>';
+  else if (tcr < 175) position = '<span style="color:var(--warn);font-weight:700;">⚑ TCR low (' + tcr + '%) — defensive posture. Preserve capital.</span>';
+  else position = '<span style="color:var(--accent2);font-weight:700;">✓ System healthy — TCR ' + tcr + '% · NBR ' + nbr + '% · peg ' + peg + '</span>';
+
+  // Strategy candidates
+  let strats = [];
+  if (tcr > 200 && nbr < 2 && spapy > nbr + 5) strats.push({label:'SP First', color:'var(--accent2)'});
+  if (floorRatio > 0 && nbr < 3 && ltv < 55) strats.push({label:'Leverage Loop', color:'var(--accent)'});
+  if (spread > 1.05 && ltv < 55) strats.push({label:'Bonding Curve Arb', color:'var(--warn)'});
+  if (tcr < 175 || ltv >= 65 || peg < 0.98) strats.push({label:'Defensive', color:'var(--danger)'});
+  if (strats.length === 0) strats.push({label:'No clear signal — observe', color:'var(--muted)'});
+
+  document.getElementById('mc-position').innerHTML = position;
+  const sc = document.getElementById('mc-strategies');
+  sc.innerHTML = strats.map(s => '<span style="background:' + s.color + '20;color:' + s.color + ';border:1px solid ' + s.color + ';border-radius:6px;padding:6px 14px;font-size:13px;font-weight:600;">' + s.label + '</span>').join('');
+  document.getElementById('mc-result').style.display = 'block';
+
+  // Update timestamp
+  document.getElementById('mc-timestamp').textContent = new Date().toLocaleString('en-GB', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
 function toggleScenario(id) {
   const card = document.getElementById(id);
   const isOpen = card.classList.contains('open');
