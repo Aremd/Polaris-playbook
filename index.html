@@ -1536,7 +1536,7 @@
           <div class="l0-step"><span class="l0-step-n">4</span><span>ETH Loan: non-liquidatable — no urgency there. Focus on CDP first.</span></div>
           <div class="l0-step"><span class="l0-step-n">5</span><span>SP: rising APY during ETH drop is an opportunity, not a signal to exit. Stay in.</span></div>
         </div>
-        <div class="l0-warn-note">⚑ No native LTV warning in the UI at 80%. Self-imposed CoinGecko alerts are the only early warning system.</div>
+        <div class="l0-warn-note">⚑ No native LTV warning in the UI at 76%. Self-imposed CoinGecko alerts are the only early warning system.</div>
         <div class="l0-session-ref">Source: J+27 — ETH −1.2%, SP withdrawal spike ~50K pUSD, SP APY +0.3% auto-adjust. TCR min 215%.</div>
       </div>
     </div>
@@ -1612,7 +1612,7 @@
       <div class="l0-detail" id="detail-s5">
         <div class="l0-section">
           <div class="l0-section-label">Observed context</div>
-          <p>Loop efficiency confirmed at ~24% per round (floor ratio ~0.2987 × LTF 80%). Slippage calibrated at 0.31% on a 50 ETH bonding curve purchase; floor price moved +0.73% during the transaction. ETH Loan is non-liquidatable — LTF = ETH Debt / (pETH Collateral × Floor price). Floor ↑ releases additional borrowing capacity automatically without any action required.</p>
+          <p>Loop efficiency confirmed at ~24% per round (floor ratio ~0.2960 × LTF 80%). Slippage calibrated at 0.31% on a 50 ETH bonding curve purchase; floor price moved +0.73% during the transaction. ETH Loan is non-liquidatable — LTF = ETH Debt / (pETH Collateral × Floor price). Floor ↑ releases additional borrowing capacity automatically without any action required.</p>
         </div>
         <div class="l0-action-block">
           <div class="l0-action-label">Action #1</div>
@@ -1987,7 +1987,7 @@
 
     <div class="notice warn">
       <span class="ni">⚑</span>
-      <span><strong>CDP LTV 80% — no native UI warning.</strong> The protocol has no alert or visual indicator when LTV approaches critical levels (80%+). The user must track LTV manually and self-impose alert thresholds. Reflex: check LTV before every action. Set external price alerts via CoinGecko to trigger an LTV check.</span>
+      <span><strong>CDP LTV 76% — no native UI warning.</strong> The protocol has no alert or visual indicator when LTV approaches critical levels (80%+). The user must track LTV manually and self-impose alert thresholds. Reflex: check LTV before every action. Set external price alerts via CoinGecko to trigger an LTV check.</span>
     </div>
 
     <div class="card">
@@ -2047,7 +2047,7 @@
         Maximum ETH borrow = pETH collateral × floor price<br>
         Floor ↑ → additional borrowing capacity released automatically<br>
         Applies only to ETH Loan — not to the CDP<br>
-        Efficiency/round ≈ floor ratio × LTF% — ex: 0.2987 × 80% ≈ 23.9%</p>
+        Efficiency/round ≈ floor ratio × LTF% — ex: 0.2960 × 80% ≈ 23.9%</p>
       </div>
     </div>
 
@@ -2099,7 +2099,8 @@
 
     <div class="notice info">
       <span class="ni">📊</span>
-      <span><strong>Calibrated slippage data (testnet, 50 ETH):</strong> 0.31% slippage on a 50 ETH purchase. Floor price impact: +0.73% during the purchase. These figures provide a baseline for estimating arb viability. Mainnet conditions (gas costs, liquidity depth) will differ — recalibrate before executing at mainnet.</span>
+      <span><strong>Calibrated slippage data (testnet, 50 ETH):</strong> Full slippage curve (testnet, structural asymmetry confirmed — buy costs ~15× more than sell at equivalent size):<br>Buy: 10 ETH=0.05% · 50 ETH=0.31% · 100 ETH=0.67% · 500 ETH=3.8% · 1000 ETH=8.2%<br>Sell: 10 pETH=0.003% · 50 pETH=0.02% · 100 pETH=0.04% · 500 pETH=0.25% · 1000 pETH=0.55%<br>Round-trip cost at 50 ETH: ~0.33%. pUSD redeem path: ~0.8% cheaper than bonding curve.
+        Floor price impact on 50 ETH purchase: +0.73%. Mainnet conditions (gas costs, liquidity depth) will differ — recalibrate before executing at mainnet.</span>
     </div>
 
     <div class="card">
@@ -2589,7 +2590,7 @@ function toggleTheme() {
 const stratData = {
   sp:   { name: 'SP First',           hint: 'Stable market · TCR > 200% · Recurring yield' },
   loop: { name: 'Leverage Loop',      hint: 'Rising floor · LTF < 60% · Non-liquidatable' },
-  arb:  { name: 'Bonding Curve Arb',  hint: 'Spread > 2.5× · Low volume · Slippage 0.31% on 50 ETH' },
+  arb:  { name: 'Bonding Curve Arb',  hint: 'Spread > 2.5× · Low volume · Round-trip 0.33% · asymmetry ×15' },
   def:  { name: 'Defensive',          hint: 'Bear market · Preserve capital · LTV < 40%' }
 };
 
