@@ -92,11 +92,19 @@
     padding: 6px 10px; border-radius: 5px; transition: border-color .15s, box-shadow .15s;
   }
   .ctx-field input:focus { outline: none; border-color: rgba(79,156,249,.5); box-shadow: 0 0 0 3px rgba(79,156,249,.08); }
-  .ctx-result { display: none; border-top: 1px solid var(--border); padding: 10px 0 4px; animation: layerIn .18s var(--ease-out) both; }
-  .ctx-result.visible { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .ctx-situation { font-size: 12px; font-weight: 600; }
-  .ctx-strats { display: flex; gap: 6px; flex-wrap: wrap; }
-  .ctx-strat { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 4px; border: 1px solid; }
+  .ctx-result { display: none; border-top: 1px solid var(--border); padding: 14px 28px 16px; animation: layerIn .18s var(--ease-out) both; }
+  .ctx-result.visible { display: block; }
+  .ctx-situation { font-size: 13px; font-weight: 600; margin-bottom: 12px; display: block; }
+  .ctx-strats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+  .ctx-strat {
+    background: var(--surface); border: 1px solid; border-radius: 8px;
+    padding: 10px 14px; cursor: pointer; transition: opacity .15s, transform .1s;
+    text-align: left;
+  }
+  .ctx-strat:hover { opacity: .85; transform: translateY(-1px); }
+  .ctx-strat-name { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; }
+  .ctx-strat-reason { font-size: 11px; color: var(--muted); display: block; line-height: 1.5; }
+  .ctx-strat-action { font-size: 10px; font-family: 'IBM Plex Mono', monospace; margin-top: 6px; display: block; opacity: .7; }
 
   /* compact readout when form is closed */
   .ctx-readout { display: none; padding: 8px 0; }
@@ -189,7 +197,14 @@
   .card:hover { border-color: var(--border-bright); }
   .card-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
 
-  /* ── STRATEGY SELECTOR (inside Strategies tab) ── */
+  .open-polaris-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--accent); color: #0c0e12; font-family: 'Syne', sans-serif;
+    font-size: 12px; font-weight: 700; padding: 7px 16px; border-radius: 6px;
+    text-decoration: none; transition: background .15s, transform .1s;
+    white-space: nowrap; letter-spacing: .02em;
+  }
+  .open-polaris-btn:hover { background: #6aadff; transform: translateY(-1px); text-decoration: none; }
   .strat-bar { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
   .strat-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); margin-right: 4px; letter-spacing: .06em; text-transform: uppercase; }
   .strat-btn { background: none; border: 1px solid var(--border); color: var(--muted); font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 500; padding: 5px 14px; border-radius: 5px; cursor: pointer; transition: all .15s; }
@@ -494,10 +509,12 @@
       <div class="ctx-field"><label>Floor pETH</label><input type="number" id="ctx-floor" placeholder="e.g. 660"></div>
       <div class="ctx-field"><label>Market pETH</label><input type="number" id="ctx-market" placeholder="e.g. 2208"></div>
     </div>
-    <div class="ctx-result" id="ctxResult">
-      <span class="ctx-situation" id="ctxSituation"></span>
-      <div class="ctx-strats" id="ctxStrats"></div>
-    </div>
+  </div>
+
+  <!-- Result — always visible once populated, independent of form open/close -->
+  <div class="ctx-result" id="ctxResult">
+    <span class="ctx-situation" id="ctxSituation"></span>
+    <div class="ctx-strats" id="ctxStrats"></div>
   </div>
 </div>
 
@@ -742,7 +759,10 @@
 
   <!-- SP FIRST -->
   <div class="strat-detail active" id="detail-sp">
-    <div class="detail-header"><h3>SP First — Detail</h3></div>
+    <div class="detail-header">
+      <h3>SP First — Detail</h3>
+      <a href="https://app.testnet.polarisfinance.io" target="_blank" class="open-polaris-btn">Open Polaris → Borrow</a>
+    </div>
     <div class="detail-grid">
       <div class="info-block"><div class="ib-label">Optimal context</div><p>TCR &gt; 200% · IR &lt; 5% · NBR &lt; 2%<br>SP APY &gt; 9% · Stable or slightly bullish</p></div>
       <div class="info-block"><div class="ib-label">Key indicators</div><p><strong>Net Yield</strong> = SP APY − Net Borrow Rate<br><strong>LTV</strong> distance to liquidation (CDP only)<br><strong>pETH Gain</strong>: 0 = no liquidation absorbed</p></div>
@@ -767,7 +787,10 @@
 
   <!-- LOOP -->
   <div class="strat-detail" id="detail-loop">
-    <div class="detail-header"><h3>Leverage Loop — Detail</h3></div>
+    <div class="detail-header">
+      <h3>Leverage Loop — Detail</h3>
+      <a href="https://app.testnet.polarisfinance.io" target="_blank" class="open-polaris-btn">Open Polaris → ETH Loans</a>
+    </div>
     <div class="flag-testnet"><strong>Testnet mechanics, subject to change before mainnet.</strong> Free rider problem being resolved by team.</div>
     <div class="notice success"><span class="ni">✓</span><span><strong>ETH Loan = non-liquidatable.</strong> LTF is a borrowing capacity ratio, not a liquidation threshold. No LTF level triggers forced liquidation.</span></div>
     <div class="notice info"><span class="ni">📊</span><span><strong>Calibrated cost (30 March 2026):</strong> ~1 ETH/day carry cost at LTF 100% on 670 pETH collateral. Repayment requires Approve WETH + Confirm (2 transactions, WETH not native ETH).</span></div>
@@ -790,7 +813,10 @@
 
   <!-- ARB -->
   <div class="strat-detail" id="detail-arb">
-    <div class="detail-header"><h3>Bonding Curve Arb — Detail</h3></div>
+    <div class="detail-header">
+      <h3>Bonding Curve Arb — Detail</h3>
+      <a href="https://app.testnet.polarisfinance.io" target="_blank" class="open-polaris-btn">Open Polaris → Trade</a>
+    </div>
     <div class="notice info"><span class="ni">📊</span><span><strong>Calibrated slippage (30 March 2026) — structural asymmetry ×15 buy vs sell:</strong><br>Buy: 10 ETH=0.28% · 50 ETH=0.31% · 100 ETH=0.30% · 500 ETH=0.36% · 1000 ETH=0.43%<br>Sell: 10 pETH=0.01% · 50 pETH=0.02% · 100 pETH=0.03% · 500 pETH=0.10% · 1000 pETH=0.18%<br>Round-trip at 50 ETH: ~0.33%. pUSD Redeem path: ~0.8% cheaper than bonding curve.</span></div>
     <div class="detail-grid">
       <div class="info-block"><div class="ib-label">Optimal context</div><p>Spread &gt; 2.5× · Low bonding curve volume<br>Stable floor · pUSD peg near $1.00</p></div>
@@ -811,7 +837,10 @@
 
   <!-- DEFENSIVE -->
   <div class="strat-detail" id="detail-def">
-    <div class="detail-header"><h3>Defensive — Detail</h3></div>
+    <div class="detail-header">
+      <h3>Defensive — Detail</h3>
+      <a href="https://app.testnet.polarisfinance.io" target="_blank" class="open-polaris-btn">Open Polaris → Dashboard</a>
+    </div>
     <div class="detail-grid">
       <div class="info-block"><div class="ib-label">Trigger context</div><p>ETH −10%+ / 24h · TCR &lt; 175%<br>pUSD depeg &gt; 1h below $0.98</p></div>
       <div class="info-block"><div class="ib-label">Objective</div><p><strong>Preserve capital above all.</strong><br>CDP LTV &lt; 40% · Reduce leverage<br>SP: stay in (APY rises), do not panic-exit<br>ETH Loan: non-liquidatable, no urgency</p></div>
@@ -1032,6 +1061,30 @@ function toggleTheme() {
 
 // ── MARKET CONTEXT BAR ──
 let ctxOpen = false;
+let ctxFilled = false; // tracks if metrics have been entered
+
+// Warn before closing if metrics were entered
+window.addEventListener('beforeunload', function(e) {
+  if (ctxFilled) {
+    e.preventDefault();
+    e.returnValue = 'You have entered market metrics. They will be lost if you close this tab.';
+  }
+});
+
+// Restore metrics from sessionStorage on load
+window.addEventListener('load', function() {
+  var saved = sessionStorage.getItem('ctx_metrics');
+  if (saved) {
+    try {
+      var m = JSON.parse(saved);
+      ['tcr','nbr','spapy','ltv','peg','floor','market'].forEach(function(k) {
+        var el = document.getElementById('ctx-' + k);
+        if (el && m[k] !== undefined) el.value = m[k];
+      });
+      ctxFilled = true;
+    } catch(e) {}
+  }
+});
 let ctxData = null;
 
 function toggleCtx() {
@@ -1051,6 +1104,10 @@ function runCtx() {
   const market = parse(document.getElementById('ctx-market').value);
   if ([tcr, nbr, spapy, ltv, peg, floor, market].some(isNaN)) { alert('Please fill in all 7 metrics.'); return; }
 
+  // Persist metrics for session
+  ctxFilled = true;
+  sessionStorage.setItem('ctx_metrics', JSON.stringify({ tcr, nbr, spapy, ltv, peg, floor, market }));
+
   ctxData = { tcr, nbr, spapy, ltv, peg, floor, market };
   const ts = new Date().toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
   document.getElementById('ctxTs').textContent = ts;
@@ -1065,16 +1122,53 @@ function runCtx() {
   document.getElementById('ctxSituation').textContent = sit;
   document.getElementById('ctxSituation').style.color = sitColor;
 
-  // Strategy candidates
-  let strats = [];
-  if (tcr > 200 && nbr < 2 && spapy > nbr + 5) strats.push({ label: 'SP First', c: 'var(--accent2)', b: 'rgba(127,214,180,.35)', bg: 'rgba(127,214,180,.08)' });
-  if (floor > 0 && market > floor && ltv < 55) strats.push({ label: 'Leverage Loop', c: 'var(--accent)', b: 'rgba(79,156,249,.35)', bg: 'rgba(79,156,249,.08)' });
-  if ((market / floor) > 1.05 && ltv < 55 && peg > 0.99) strats.push({ label: 'Bonding Curve Arb', c: 'var(--warn)', b: 'rgba(245,166,35,.35)', bg: 'rgba(245,166,35,.07)' });
-  if (tcr < 175 || ltv >= 65 || peg < 0.98) strats.push({ label: 'Defensive', c: 'var(--danger)', b: 'rgba(224,85,85,.35)', bg: 'rgba(224,85,85,.07)' });
-  if (!strats.length) strats.push({ label: 'No clear signal — observe', c: 'var(--muted)', b: 'var(--border)', bg: 'var(--surface2)' });
+  // Strategy candidates — rich cards with reason + click to navigate
+  const stratDefs = [
+    {
+      key: 'sp',
+      label: 'SP First',
+      c: 'var(--accent2)', b: 'rgba(127,214,180,.35)', bg: 'rgba(127,214,180,.08)',
+      test: () => tcr > 200 && nbr < 2 && spapy > nbr + 5,
+      reason: () => 'TCR ' + tcr + '% · NBR ' + nbr + '% · Net Yield +' + (spapy - nbr).toFixed(1) + '%',
+      action: 'Open CDP at LTV 45–50% → deposit to SP →'
+    },
+    {
+      key: 'loop',
+      label: 'Leverage Loop',
+      c: 'var(--accent)', b: 'rgba(79,156,249,.35)', bg: 'rgba(79,156,249,.08)',
+      test: () => floor > 0 && market > floor && ltv < 55,
+      reason: () => 'Floor ratio ' + (market/floor).toFixed(3) + ' · LTV ' + ltv + '% < 55%',
+      action: 'Confirm floor ↑ 7d → execute 1 round →'
+    },
+    {
+      key: 'arb',
+      label: 'Bonding Curve Arb',
+      c: 'var(--warn)', b: 'rgba(245,166,35,.35)', bg: 'rgba(245,166,35,.07)',
+      test: () => (market/floor) > 1.05 && ltv < 55 && peg > 0.99,
+      reason: () => 'Spread ' + (market/floor).toFixed(2) + '× · peg $' + peg,
+      action: 'Check volume → execute in tranches →'
+    },
+    {
+      key: 'def',
+      label: 'Defensive',
+      c: 'var(--danger)', b: 'rgba(224,85,85,.35)', bg: 'rgba(224,85,85,.07)',
+      test: () => tcr < 175 || ltv >= 65 || peg < 0.98,
+      reason: () => tcr < 175 ? 'TCR ' + tcr + '% — system under stress' : ltv >= 65 ? 'LTV ' + ltv + '% — reduce exposure' : 'pUSD $' + peg + ' — monitor depeg',
+      action: 'Reduce LTV to 40% · Preserve capital →'
+    },
+  ];
+
+  let strats = stratDefs.filter(s => s.test());
+  if (!strats.length) strats = [{ key: null, label: 'No clear signal — observe', c: 'var(--muted)', b: 'var(--border)', bg: 'var(--surface2)', reason: () => 'Conditions do not strongly favour any strategy', action: 'Monitor daily. Check again tomorrow →' }];
 
   const sc = document.getElementById('ctxStrats');
-  sc.innerHTML = strats.map(s => `<span class="ctx-strat" style="color:${s.c};border-color:${s.b};background:${s.bg}">${s.label}</span>`).join('');
+  sc.innerHTML = strats.map(s => `
+    <button class="ctx-strat" onclick="${s.key ? `goToStrat('${s.key}')` : ''}" style="color:${s.c};border-color:${s.b};background:${s.bg};">
+      <span class="ctx-strat-name">${s.label}</span>
+      <span class="ctx-strat-reason">${s.reason()}</span>
+      <span class="ctx-strat-action">${s.action}</span>
+    </button>
+  `).join('');
   document.getElementById('ctxResult').classList.add('visible');
 
   // Compact readout
@@ -1091,10 +1185,8 @@ function runCtx() {
   ro.innerHTML = metrics.map(m => `<div class="ctx-metric"><span class="ctx-metric-label">${m.label}</span><span class="ctx-metric-value ${m.cls}">${m.value}</span></div>`).join('');
   ro.classList.add('visible');
 
-  // Close form, show readout
-  ctxOpen = false;
-  document.getElementById('ctxForm').classList.remove('open');
-  document.getElementById('ctxToggleLabel').classList.remove('open');
+  // Keep form open, scroll result into view
+  document.getElementById('ctxResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 // ── GUIDED PATHS ──
@@ -1161,6 +1253,22 @@ document.addEventListener('click', function(e) {
 });
 
 // ── STRATEGY ──
+function goToStrat(key) {
+  // Navigate to Strategies tab
+  document.querySelectorAll('.layer').forEach(function(l) { l.classList.remove('active'); });
+  document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.nav-dropdown-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('layer-strategies').classList.add('active');
+  // Activate the Strategies nav tab (second tab)
+  var tabs = document.querySelectorAll('.nav-tab');
+  for (var i = 0; i < tabs.length; i++) {
+    if (tabs[i].textContent.trim() === 'Strategies') { tabs[i].classList.add('active'); break; }
+  }
+  // Open the right detail
+  setStrat(key);
+  showDetail(key);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 const stratData = {
   sp:   { name: 'SP First',          hint: 'Stable market · TCR > 200% · Recurring yield' },
   loop: { name: 'Leverage Loop',     hint: 'Rising floor · LTF < 60% · Non-liquidatable' },
