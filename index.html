@@ -2735,13 +2735,14 @@ function showLayer(n, el) {
   el.classList.add('active');
 }
 function runMorningCheck() {
-  const tcr = parseFloat(document.getElementById('mc-tcr').value);
-  const nbr = parseFloat(document.getElementById('mc-nbr').value);
-  const spapy = parseFloat(document.getElementById('mc-spapy').value);
-  const ltv = parseFloat(document.getElementById('mc-ltv').value);
-  const peg = parseFloat(document.getElementById('mc-peg').value);
-  const floor = parseFloat(document.getElementById('mc-floor').value);
-  const market = parseFloat(document.getElementById('mc-market').value);
+  const parse = v => parseFloat(v.replace(',', '.'));
+  const tcr = parse(document.getElementById('mc-tcr').value);
+  const nbr = parse(document.getElementById('mc-nbr').value);
+  const spapy = parse(document.getElementById('mc-spapy').value);
+  const ltv = parse(document.getElementById('mc-ltv').value);
+  const peg = parse(document.getElementById('mc-peg').value);
+  const floor = parse(document.getElementById('mc-floor').value);
+  const market = parse(document.getElementById('mc-market').value);
 
   if ([tcr, nbr, spapy, ltv, peg, floor, market].some(isNaN)) {
     alert('Please fill in all 7 metrics.');
