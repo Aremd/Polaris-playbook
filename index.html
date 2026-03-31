@@ -2031,6 +2031,11 @@
       <span><strong>ETH Loan = non-liquidatable.</strong> LTF is not a danger threshold — it is a borrowing capacity ratio. The risk is leverage risk (ETH drops → pETH collateral loses market value), not forced liquidation. There is no LTF-triggered liquidation event.</span>
     </div>
 
+    <div class="notice warn">
+      <span class="ni">📊</span>
+      <span><strong>Calibrated cost data (testnet, S7 — 30 March 2026):</strong> ETH Loan debt accrued +3.069 ETH over 3 days at LTF 100% on 670 pETH collateral — approximately <strong>~1 ETH/day</strong>. Factor this carry cost into loop profitability calculations. Repayment uses WETH (not native ETH): two-transaction flow required (Approve WETH + Confirm).</span>
+    </div>
+
     <div class="notice info">
       <span class="ni">↻</span>
       <span><strong>1-click loop coming</strong> — the current manual execution will be replaced by a single atomic transaction via LI.FI composer, Enso, or natively in Polaris. Parameters: target LTF + max number of rounds. Until then, execute rounds manually and monitor 24h between each.</span>
