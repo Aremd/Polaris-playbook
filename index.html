@@ -490,6 +490,7 @@
     </span>
     <div class="ctx-right">
       <span class="ctx-ts" id="ctxTs"></span>
+      <button class="ctx-btn" id="ctxClearBtn" onclick="clearCtx()" style="display:none;color:var(--danger);border-color:rgba(224,85,85,.35);">Clear ✕</button>
       <button class="ctx-btn" onclick="toggleCtx()">Edit</button>
       <button class="ctx-btn primary" onclick="runCtx()">Analyse →</button>
     </div>
@@ -501,13 +502,13 @@
   <!-- Form -->
   <div class="ctx-form" id="ctxForm">
     <div class="ctx-grid">
-      <div class="ctx-field"><label>TCR (%)</label><input type="number" id="ctx-tcr" placeholder="e.g. 207"></div>
-      <div class="ctx-field"><label>NBR (%)</label><input type="number" id="ctx-nbr" placeholder="e.g. 2.9"></div>
-      <div class="ctx-field"><label>SP APY (%)</label><input type="number" id="ctx-spapy" placeholder="e.g. 9.9"></div>
-      <div class="ctx-field"><label>LTV max (%)</label><input type="number" id="ctx-ltv" placeholder="e.g. 42"></div>
-      <div class="ctx-field"><label>pUSD peg</label><input type="number" id="ctx-peg" placeholder="e.g. 0.997"></div>
-      <div class="ctx-field"><label>Floor pETH</label><input type="number" id="ctx-floor" placeholder="e.g. 660"></div>
-      <div class="ctx-field"><label>Market pETH</label><input type="number" id="ctx-market" placeholder="e.g. 2208"></div>
+      <div class="ctx-field"><label>TCR (%)</label><input type="text" inputmode="decimal" id="ctx-tcr" placeholder="207"></div>
+      <div class="ctx-field"><label>NBR (%)</label><input type="text" inputmode="decimal" id="ctx-nbr" placeholder="2.9"></div>
+      <div class="ctx-field"><label>SP APY (%)</label><input type="text" inputmode="decimal" id="ctx-spapy" placeholder="9.9"></div>
+      <div class="ctx-field"><label>LTV max (%)</label><input type="text" inputmode="decimal" id="ctx-ltv" placeholder="42"></div>
+      <div class="ctx-field"><label>pUSD peg</label><input type="text" inputmode="decimal" id="ctx-peg" placeholder="0.997"></div>
+      <div class="ctx-field"><label>Floor pETH ($)</label><input type="text" inputmode="decimal" id="ctx-floor" placeholder="660"></div>
+      <div class="ctx-field"><label>Market pETH ($)</label><input type="text" inputmode="decimal" id="ctx-market" placeholder="2208"></div>
     </div>
   </div>
 
@@ -1082,10 +1083,27 @@ window.addEventListener('load', function() {
         if (el && m[k] !== undefined) el.value = m[k];
       });
       ctxFilled = true;
+      document.getElementById('ctxClearBtn').style.display = 'inline-flex';
     } catch(e) {}
   }
 });
 let ctxData = null;
+
+function clearCtx() {
+  ['tcr','nbr','spapy','ltv','peg','floor','market'].forEach(function(k) {
+    document.getElementById('ctx-' + k).value = '';
+  });
+  document.getElementById('ctxResult').classList.remove('visible');
+  document.getElementById('ctxReadout').classList.remove('visible');
+  document.getElementById('ctxReadout').innerHTML = '';
+  document.getElementById('ctxTs').textContent = '';
+  document.getElementById('ctxClearBtn').style.display = 'none';
+  sessionStorage.removeItem('ctx_metrics');
+  ctxFilled = false;
+  ctxOpen = true;
+  document.getElementById('ctxForm').classList.add('open');
+  document.getElementById('ctxToggleLabel').classList.add('open');
+}
 
 function toggleCtx() {
   ctxOpen = !ctxOpen;
@@ -1170,6 +1188,7 @@ function runCtx() {
     </button>
   `).join('');
   document.getElementById('ctxResult').classList.add('visible');
+  document.getElementById('ctxClearBtn').style.display = 'inline-flex';
 
   // Compact readout
   const ro = document.getElementById('ctxReadout');
