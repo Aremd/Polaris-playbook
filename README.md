@@ -72,7 +72,7 @@ Works on iOS, Android, and desktop. No login, no account, no dependencies.
 
 ## Status and roadmap
 
-**Current version:** v5.0 — testnet Sepolia
+**Current version:** v6.1 — testnet Sepolia
 
 **This playbook is a work in progress.** The following are known gaps being addressed:
 
