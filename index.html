@@ -53,6 +53,17 @@
   /* ── DISCLAIMER ── */
   .disclaimer { background: #f5a623; color: #0c0e12; text-align: center; padding: 8px 16px; font-size: 12px; font-weight: 600; letter-spacing: .03em; }
 
+  /* ── MATURITY BADGE ── */
+  .maturity-badge { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 3px; border: 1px solid; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap; display: inline-block; vertical-align: middle; }
+  .maturity-badge.testnet { color: var(--warn); border-color: rgba(245,166,35,.4); background: rgba(245,166,35,.08); }
+  .maturity-badge.mainnet-ready { color: var(--accent2); border-color: rgba(127,214,180,.4); background: rgba(127,214,180,.08); }
+
+  /* ── CONFIDENCE LABEL ── */
+  .conf { font-family: 'IBM Plex Mono', monospace; font-size: 9px; padding: 1px 5px; border-radius: 2px; border: 1px solid; letter-spacing: .04em; margin-left: 4px; vertical-align: middle; white-space: nowrap; display: inline-block; }
+  .conf.calibrated { color: var(--accent2); border-color: rgba(127,214,180,.3); background: rgba(127,214,180,.06); }
+  .conf.estimated { color: var(--warn); border-color: rgba(245,166,35,.3); background: rgba(245,166,35,.06); }
+  .conf.mainnet { color: var(--accent); border-color: rgba(79,156,249,.3); background: rgba(79,156,249,.06); }
+
   /* ── MARKET CONTEXT BAR ── */
   .ctx-bar {
     background: var(--surface3);
@@ -469,7 +480,7 @@
   </div>
   <div class="header-right">
     <span class="badge network">Sepolia</span>
-    <span class="badge version">v6.0</span>
+    <span class="badge version">v6.1</span>
     <span class="badge">pETH · pUSD · POLAR · pGOLD ↗</span>
     <button class="theme-toggle" onclick="toggleTheme()">
       <span id="themeIcon">☀</span>
@@ -479,7 +490,7 @@
 </header>
 
 <!-- ── DISCLAIMER ── -->
-<div class="disclaimer">⚠️ TESTNET ONLY — Not financial advice. Thresholds require mainnet recalibration. Last updated: March 2026.</div>
+<div class="disclaimer">⚠️ TESTNET ONLY — Not financial advice. Thresholds require mainnet recalibration. Last updated: April 2, 2026.</div>
 
 <!-- ── MARKET CONTEXT BAR ── -->
 <div class="ctx-bar">
@@ -582,7 +593,7 @@
 <div class="layer active" id="layer-scenarios">
   <div style="margin-bottom:6px;">
     <h2>Scenario library</h2>
-    <p style="margin-bottom:4px;">Observed conditions → strategy match → action #1. Built from real testnet sessions 16→30 March 2026 on Sepolia.</p>
+    <p style="margin-bottom:4px;">Observed conditions → strategy match → action #1. Built from real testnet sessions 16 March → 2 April 2026 on Sepolia.</p>
     <div class="l0-meta">
       <span class="chip daily">5 scenarios</span>
       <span class="chip" style="color:var(--muted);">Grounded in real data</span>
@@ -714,8 +725,8 @@
 
   <div class="l0-coverage">
     <span class="l0-coverage-label">Coverage v1.0</span>
-    S1–S5 cover scenarios observed 16→30 March 2026 on Sepolia.
-    Pending: Loan #56/#60 liquidation data · pGOLD mechanics · Mainnet threshold recalibration.
+    S1–S5 cover scenarios observed 16 March → 2 April 2026 on Sepolia. No liquidations during Round 1 — Loan #56 (76% LTV) and Loan #60 (82% LTV) closed cleanly on 2 April. ETH stayed above liquidation thresholds throughout.
+    Pending: Liquidation scenario data (Round 2) · pGOLD mechanics · Mainnet threshold recalibration.
   </div>
 </div>
 
@@ -737,22 +748,22 @@
 
   <div class="strat-grid">
     <div class="strat-card selected" id="sc-sp" onclick="showDetail('sp')">
-      <div class="sc-name">SP First</div>
+      <div class="sc-name">SP First <span class="maturity-badge testnet">TESTNET</span></div>
       <div class="sc-desc">Stable market. Healthy TCR. Recurring yield on pUSD via Stability Pool.</div>
       <div class="sc-tags"><span class="sc-tag green">TCR &gt; 200%</span><span class="sc-tag green">NBR &lt; 2%</span><span class="sc-tag green">High SP APY</span></div>
     </div>
     <div class="strat-card" id="sc-loop" onclick="showDetail('loop')">
-      <div class="sc-name">Leverage Loop</div>
+      <div class="sc-name">Leverage Loop <span class="maturity-badge testnet">TESTNET</span></div>
       <div class="sc-desc">Rising floor. Stable ETH. Recursive pETH/ETH leverage via ETH Loan. 1-click coming.</div>
       <div class="sc-tags"><span class="sc-tag blue">Floor ↑ 7d</span><span class="sc-tag blue">LTF &lt; 60%</span><span class="sc-tag green">ETH stable</span></div>
     </div>
     <div class="strat-card" id="sc-arb" onclick="showDetail('arb')">
-      <div class="sc-name">Bonding Curve Arb</div>
+      <div class="sc-name">Bonding Curve Arb <span class="maturity-badge testnet">TESTNET</span></div>
       <div class="sc-desc">High spread. Low volume. Capturing the pETH spread. Asymmetry ×15 buy vs sell.</div>
       <div class="sc-tags"><span class="sc-tag orange">Spread &gt; 2.5×</span><span class="sc-tag green">Low volume</span><span class="sc-tag green">Stable floor</span></div>
     </div>
     <div class="strat-card" id="sc-def" onclick="showDetail('def')">
-      <div class="sc-name">Defensive</div>
+      <div class="sc-name">Defensive <span class="maturity-badge testnet">TESTNET</span></div>
       <div class="sc-desc">Bear market. TCR under pressure. Capital preservation is the priority.</div>
       <div class="sc-tags"><span class="sc-tag red">TCR &lt; 175%</span><span class="sc-tag red">ETH -10%+</span><span class="sc-tag orange">LTV max 40%</span></div>
     </div>
@@ -844,7 +855,7 @@
     </div>
     <div class="detail-grid">
       <div class="info-block"><div class="ib-label">Trigger context</div><p>ETH −10%+ / 24h · TCR &lt; 175%<br>pUSD depeg &gt; 1h below $0.98</p></div>
-      <div class="info-block"><div class="ib-label">Objective</div><p><strong>Preserve capital above all.</strong><br>CDP LTV &lt; 40% · Reduce leverage<br>SP: stay in (APY rises), do not panic-exit<br>ETH Loan: non-liquidatable, no urgency</p></div>
+      <div class="info-block"><div class="ib-label">Objective</div><p><strong>Preserve capital above all.</strong><br>CDP LTV &lt; 40% · Reduce leverage<br>SP: stay in unless: (a) peg &lt; $0.95 sustained &gt; 2h · (b) TCR &lt; 150% · (c) you need liquidity urgently to repay CDP debt<br>ETH Loan: non-liquidatable, no urgency</p></div>
     </div>
     <div class="card"><div class="card-title">Decision tree</div>
       <div class="dtree">
@@ -948,7 +959,7 @@
         <tr><td>1</td><td><strong>Polaris Dashboard</strong></td><td>LTV · LTF · Net Borrow Rate · SP Gains · pETH Gain</td><td>pETH Gain &gt; 0 = liquidation occurred</td><td>2 min</td></tr>
         <tr><td>2</td><td><strong>Analytics → Overview</strong></td><td>pUSD peg · SP APY · IR · TCR · ETH &amp; pETH price</td><td>peg outside ±1% = alert</td><td>3 min</td></tr>
         <tr><td>3</td><td><strong>Analytics → CDP System</strong></td><td>LTV distribution · Net Borrow Cost trend · TCR Over Time</td><td>CDPs 80–100% LTV = stress ahead</td><td>3 min</td></tr>
-        <tr><td>4</td><td><strong>CoinGecko / Binance</strong></td><td>ETH spot · 24h change</td><td>±5%/24h → check LTV</td><td>1 min</td></tr>
+        <tr><td>4</td><td><strong>CoinGecko / Binance</strong></td><td>ETH spot · 24h change · cross-check vs Polaris oracle</td><td>±5%/24h → check LTV · divergence &gt;2% → pause transactions</td><td>1 min</td></tr>
         <tr><td>5</td><td><strong>Pharos Watch</strong></td><td>pUSD vs stablecoin peers</td><td>External peg deviation confirmation</td><td>2 min</td></tr>
       </tbody>
     </table></div>
@@ -991,17 +1002,17 @@
       <tr><td><strong>Net Borrow Rate</strong></td><td>CDP</td><td>Real cost of debt after pETH yield deduction.</td><td>Not sufficient alone — compare to SP APY.</td><td>NBR &gt; SP APY → SP First unprofitable. Act within 24h.</td></tr>
       <tr><td><strong>pUSD peg</strong></td><td>System</td><td>Stablecoin health. Brief depeg = wait (repeg in 27 min).</td><td>Brief depeg is not a crisis.</td><td>Depeg &gt; 1h below $0.98 = investigate.</td></tr>
       <tr><td><strong>Floor price pETH</strong></td><td>System</td><td>Can only go up. Floor ↑ = additional ETH Loan capacity.</td><td>Not an ETH Loan liquidation price (none exists).</td><td>Floor ↑ over 7d → Leverage Loop conditions.</td></tr>
-      <tr><td><strong>Floor ratio</strong></td><td>System</td><td>Market price / floor price. Represents TVL in bonding curve vs floor. Baseline: 0.2960 (30 March 2026).</td><td>Volatile across market cycles. Floor itself is stable.</td><td>Floor ratio ↑ = bonding curve filling up.</td></tr>
+      <tr><td><strong>Floor ratio</strong></td><td>System</td><td>Market price / floor price. Represents TVL in bonding curve vs floor. Baseline: 0.2960 (30 March) → 0.2971 (2 April 2026).</td><td>Volatile across market cycles. Floor itself can only increase.</td><td>Floor ratio ↑ = bonding curve filling up.</td></tr>
       <tr><td><strong>pETH Gain (SP)</strong></td><td>SP</td><td>Direct signal of CDP liquidation absorbed by SP.</td><td>Does not indicate amount or TCR impact.</td><td>pETH Gain &gt; 0 → check CDP System.</td></tr>
-      <tr><td><strong>SP APY</strong></td><td>System</td><td>SP yield. Rises when depositors exit.</td><td>High APY during stress = opportunity, not danger.</td><td>SP APY rising during ETH drop → stay in.</td></tr>
-      <tr><td><strong>POLAR inflation</strong></td><td>System</td><td>Dilution pressure. ~9.5–10% annualised (30 March 2026).</td><td>Does not reflect short-term POLAR price.</td><td>Inflation &lt; 5% over 7d = accumulation signal.</td></tr>
+      <tr><td><strong>SP APY</strong></td><td>System</td><td>SP yield. Rises when depositors exit. Confirmed ~10.6% (Round 1 — 497 pUSD gained on 639K over 17 days).</td><td>High APY during stress = opportunity, not danger.</td><td>SP APY rising during ETH drop → stay in.</td></tr>
+      <tr><td><strong>POLAR inflation</strong></td><td>System</td><td>Dilution pressure. ~9% annualised, trending down (2 April 2026). Supply 101.63M.</td><td>Does not reflect short-term POLAR price.</td><td>Inflation &lt; 5% over 7d = accumulation signal.</td></tr>
     </tbody>
   </table></div>
 </div>
 
 <!-- ══ MISREADS ══ -->
 <div class="layer" id="layer-misreads">
-  <div style="margin-bottom:6px;"><h2>Common misreads</h2><p>6 confirmed interpretation errors from testnet sessions 16→30 March 2026.</p></div>
+  <div style="margin-bottom:6px;"><h2>Common misreads</h2><p>6 confirmed interpretation errors from testnet sessions 16 March → 2 April 2026.</p></div>
   <div class="mr-grid">
     <div class="mr-card"><div class="mr-header"><div class="mr-wrong"><span class="mr-badge wrong">✗ Wrong</span><span class="mr-statement">"LTF is a liquidation threshold — if it reaches 100%, my position gets liquidated."</span></div><div class="mr-correct"><span class="mr-badge correct">✓ Correct</span><span class="mr-statement">LTF is a borrowing <em>capacity</em> ratio. <strong>ETH Loan is non-liquidatable.</strong> No LTF level triggers forced liquidation.</span></div></div><div class="mr-body"><div class="mr-formula">LTF = ETH Debt / (pETH Collateral × Floor price)</div><p>At LTF 100% you simply cannot borrow more. Position stays open indefinitely. The real risk is leverage risk, not liquidation.</p><div class="mr-consequence">Wrong read → <strong>unnecessary panic exit from a healthy ETH Loan position.</strong></div></div></div>
 
@@ -1047,7 +1058,7 @@
 </main>
 
 <footer>
-  Arem with ❤️ for Polaris &nbsp;|&nbsp; Polaris Operational Playbook v6.0 · Testnet Sepolia · March 2026
+  Arem with ❤️ for Polaris &nbsp;|&nbsp; Polaris Operational Playbook v6.1 · Testnet Sepolia · April 2026
   &nbsp;|&nbsp; <a href="https://github.com/Aremd/Polaris-playbook" target="_blank">GitHub</a>
   &nbsp;|&nbsp; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>
 </footer>
