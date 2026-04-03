@@ -10,14 +10,14 @@ A 7-layer operational framework for Polaris Finance — built from real testnet 
 
 A standalone interactive playbook for practicing and operating on Polaris Finance. It covers the full decision loop: reading market conditions, selecting a strategy, executing actions, and managing open positions through changing conditions.
 
-It was built during testnet practice on Sepolia (March 2026) by a real user — not assembled from documentation. The thresholds, decision trees, and observations reflect what actually happens when you use the protocol.
+It was built during testnet practice on Sepolia (March–April 2026) by a real user — not assembled from documentation. The thresholds, decision trees, and observations reflect what actually happens when you use the protocol.
 
 ---
 
 ## What it covers
 
 **Layer 0 — Scenario library**
-Real observed conditions matched to a strategy and an Action #1. Built from sessions J+12→J+28 on Sepolia. Five scenarios: normal conditions, NBR rising (yield squeeze), ETH drop (LTV pressure), pUSD depeg, and floor pETH rising (Loop window). Each card shows the signal fingerprint, matched strategy, and numbered steps.
+Real observed conditions matched to a strategy and an Action #1. Built from sessions S1–S8 on Sepolia (16 March → 2 April 2026). Five scenarios: normal conditions, NBR rising (yield squeeze), ETH drop (LTV pressure), pUSD depeg, and floor pETH rising (Loop window). Each card shows the signal fingerprint, matched strategy, and numbered steps.
 
 **! Misreads — Common misreads**
 Six recurring interpretation errors confirmed across testnet sessions. Each one documents the wrong read, the correct read, the reflex to develop, and the consequence of the error. Covers: LTF ≠ liquidation threshold, LTV ≠ LTF, TCR drop ≠ personal liquidation, pETH Gain = 0 ≠ system quiet, SP APY rising ≠ danger, NBR ≠ IR controller.
